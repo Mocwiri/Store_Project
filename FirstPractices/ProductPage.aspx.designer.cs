@@ -141,24 +141,6 @@ namespace FirstPractices
         protected global::System.Web.UI.WebControls.Label lblTotalXV;
 
         /// <summary>
-        /// lblXVMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblXVMessage;
-
-        /// <summary>
-        /// lblTotalWV control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalWV;
-
-        /// <summary>
         /// lblWVMessage control.
         /// </summary>
         /// <remarks>

@@ -1,93 +1,131 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ProductPage.aspx.cs" Inherits="FirstPractices.ProductPage" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Products</title>
-     <style>
-    .page-title {
-        text-align: center;
-        font-weight: bold;
-        margin-top: 20px;
-        font-size: 24px;
-    }
-    .form-container {
-        text-align: center;
-        margin-top: 40px;
-    }
-    .grid-item {
-            border: 1px solid #ccc;
+    <title>Product Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
             padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-container {
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 18px;
-    }
-    .category-title {
-             font-weight: bold;
-             font-size: 20px;
-             margin-bottom: 10px;
-    }
-    .checkbox-list {
-            text-align: left;
-            margin-top: 10px;
-    }
-</style>
+        }
+        .product-container h3 {
+            color: #4CAF50;
+        }
+        .product-container label {
+            display: block;
+            margin: 5px 0;
+        }
+        .total-container {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('input[type="checkbox"]').change(function () {
+                if (this.checked) {
+                    alert('Product added: ' + $(this).next('label').text());
+                } else {
+                    alert('Product removed: ' + $(this).next('label').text());
+                }
+
+                $('#<%= lblTotalXV.ClientID %>').fadeOut(200).fadeIn(200);
+                $('#<%= lblWVMessage.ClientID %>').fadeOut(200).fadeIn(200);
+            });
+
+            $('#<%= btnCheckOut.ClientID %>').click(function () {
+                $(this).animate({
+                    opacity: 0.8,
+                    marginLeft: "10px"
+                }, 200).animate({
+                    opacity: 1,
+                    marginLeft: "0px"
+                }, 200);
+            });
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <h1 class="page-title">Product Page</h1>
-            <div class="grid-container">
-                <div class="grid-item">
-                    <div class="category-title">Drinks</div>
-                    <div class="checkbox-list">
-                        <asp:CheckBox ID="chkDrink1" runat="server" Text="Coke" AutoPostBack="true" OnCheckedChanged="chkDrink1_CheckedChanged" data-priceC="25" /><br />
-                        <asp:CheckBox ID="chkDrink2" runat="server" Text="Pepsi" AutoPostBack="true" OnCheckedChanged="chkDrink2_CheckedChanged" data-priceP="20.22" /><br />
-                        <asp:CheckBox ID="chkDrink3" runat="server" Text="Sprite" AutoPostBack="true" OnCheckedChanged="chkDrink3_CheckedChanged" data-priceS="23.89"/>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="category-title">Meat</div>
-                    <div class="checkbox-list">
-                        <asp:CheckBox ID="chkMeat1" runat="server" Text="Chicken" AutoPostBack="true" OnCheckedChanged="chkMeat1_CheckedChanged" data-priceCH="89.99" /><br />
-                        <asp:CheckBox ID="chkMeat2" runat="server" Text="Beef" AutoPostBack="true" OnCheckedChanged="chkMeat2_CheckedChanged" data-priceB="101.67" /><br />
-                        <asp:CheckBox ID="chkMeat3" runat="server" Text="Pork" AutoPostBack="true" OnCheckedChanged="chkMeat3_CheckedChanged" data-pricePork="55" />
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="category-title">Spices</div>
-                    <div class="checkbox-list">
-                        <asp:CheckBox ID="chkSpice1" runat="server" Text="Salt" AutoPostBack="true" OnCheckedChanged="chkSpice1_CheckedChanged" data-priceSalt="18.89"/><br />
-                        <asp:CheckBox ID="chkSpice2" runat="server" Text="Pepper" AutoPostBack="true" OnCheckedChanged="chkSpice2_CheckedChanged" data-pricePepper="15.54" /><br />
-                        <asp:CheckBox ID="chkSpice3" runat="server" Text="Paprika" AutoPostBack="true" OnCheckedChanged="chkSpice3_CheckedChanged"  data-pricePaprika="22.12"/>
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <div class="category-title">Chocolates</div>
-                    <div class="checkbox-list">
-                        <asp:CheckBox ID="chkChoco1" runat="server" Text="Milk Chocolate" AutoPostBack="true" OnCheckedChanged="chkChoco1_CheckedChanged" data-priceMC="45.99" /><br />
-                        <asp:CheckBox ID="chkChoco2" runat="server" Text="Dark Chocolate" AutoPostBack="true" OnCheckedChanged="chkChoco2_CheckedChanged" data-priceDC="39.98"/><br />
-                        <asp:CheckBox ID="chkChoco3" runat="server" Text="White Chocolate" AutoPostBack="true" OnCheckedChanged="chkChoco3_CheckedChanged" data-priceWC="120.29" />
-                    </div>
-                </div>
+        <div class="container">
+            <div class="product-container">
+                <h3>Drinks</h3>
+                <asp:CheckBox ID="chkDrink1" runat="server" ClientIDMode="Static" data-price="28.99" OnCheckedChanged="chkDrink1_CheckedChanged" AutoPostBack="true" />
+                <label for="chkDrink1">Coke</label><br />
+                <asp:CheckBox ID="chkDrink2" runat="server" ClientIDMode="Static" data-price="22.65" OnCheckedChanged="chkDrink2_CheckedChanged" AutoPostBack="true" />
+                <label for="chkDrink2">Pepsi</label><br />
+                <asp:CheckBox ID="chkDrink3" runat="server" ClientIDMode="Static" data-price="20" OnCheckedChanged="chkDrink3_CheckedChanged" AutoPostBack="true" />
+                <label for="chkDrink3">Sprite</label>
             </div>
-            <br />
-            <br />
-            <br />
-            <asp:Label ID="lblTotalXV" runat="server" Text="Total Excluding VAT: R"></asp:Label>
-            <asp:Label ID="lblXVMessage" runat="server" Text="Message" Visible="False"></asp:Label>
-            <br />
-            <br />
-            
-            <asp:Label ID="lblTotalWV" runat="server" Text="Total Including VAT: R"></asp:Label>
-            <asp:Label ID="lblWVMessage" runat="server" Text="Message" Visible="False"></asp:Label>
-            <br />
-            <br />
-            <asp:Button ID="btnCheckOut" runat="server" Text="CheckOut" OnClick="btnCheckOut_Click" /> 
-            <br />
-            <br />
-            <br />
-            
+
+            <div class="product-container">
+                <h3>Meat</h3>
+                <asp:CheckBox ID="chkMeat1" runat="server" ClientIDMode="Static" data-price="55" OnCheckedChanged="chkMeat1_CheckedChanged" AutoPostBack="true" />
+                <label for="chkMeat1">Chicken</label><br />
+                <asp:CheckBox ID="chkMeat2" runat="server" ClientIDMode="Static" data-price="89.97" OnCheckedChanged="chkMeat2_CheckedChanged" AutoPostBack="true" />
+                <label for="chkMeat2">Beef</label><br />
+                <asp:CheckBox ID="chkMeat3" runat="server" ClientIDMode="Static" data-price="35.65" OnCheckedChanged="chkMeat3_CheckedChanged" AutoPostBack="true" />
+                <label for="chkMeat3">Pork</label>
+            </div>
+
+            <div class="product-container">
+                <h3>Spices</h3>
+                <asp:CheckBox ID="chkSpice1" runat="server" ClientIDMode="Static" data-price="018.35" OnCheckedChanged="chkSpice1_CheckedChanged" AutoPostBack="true" />
+                <label for="chkSpice1">Salt</label><br />
+                <asp:CheckBox ID="chkSpice2" runat="server" ClientIDMode="Static" data-price="11.25" OnCheckedChanged="chkSpice2_CheckedChanged" AutoPostBack="true" />
+                <label for="chkSpice2">Pepper</label><br />
+                <asp:CheckBox ID="chkSpice3" runat="server" ClientIDMode="Static" data-price="14.98" OnCheckedChanged="chkSpice3_CheckedChanged" AutoPostBack="true" />
+                <label for="chkSpice3">Paprika</label>
+            </div>
+
+            <div class="product-container">
+                <h3>Chocolates</h3>
+                <asp:CheckBox ID="chkChoco1" runat="server" ClientIDMode="Static" data-price="35.56" OnCheckedChanged="chkChoco1_CheckedChanged" AutoPostBack="true" />
+                <label for="chkChoco1">Milk Chocolate</label><br />
+                <asp:CheckBox ID="chkChoco2" runat="server" ClientIDMode="Static" data-price="88.65" OnCheckedChanged="chkChoco2_CheckedChanged" AutoPostBack="true" />
+                <label for="chkChoco2">Dark Chocolate</label><br />
+                <asp:CheckBox ID="chkChoco3" runat="server" ClientIDMode="Static" data-price="182.25" OnCheckedChanged="chkChoco3_CheckedChanged" AutoPostBack="true" />
+                <label for="chkChoco3">White Chocolate</label>
+            </div>
+
+            <div class="total-container">
+                Total Excluding VAT: <asp:Label ID="lblTotalXV" runat="server" Text="0.00"></asp:Label>
+                <br />
+                Total Including VAT: <asp:Label ID="lblWVMessage" runat="server" Text="0.00"></asp:Label>
+            </div>
+
+            <asp:Button ID="btnCheckOut" runat="server" OnClick="btnCheckOut_Click" CssClass="checkout-button" Text="Check Out" />
         </div>
     </form>
 </body>
